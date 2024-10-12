@@ -1025,6 +1025,7 @@ refactor_rootfs() {
     # Add tasks that need to be executed on initial startup
     armbian_firstrun="usr/lib/armbian/armbian-firstrun"
     [[ -f "${armbian_firstrun}" ]] && sed -i '/\/etc\/armbian-release/i\[[ -x "/usr/sbin/armbian-fix" ]] && . /usr/sbin/armbian-fix' ${armbian_firstrun}
+    [[ -f "${armbian_firstrun}" ]] && sed -i '/\/etc\/armbian-release/i\[[ -x "/usr/sbin/armbian-preset" ]] && . /usr/sbin/armbian-preset' ${armbian_firstrun}
 
     # Fix abnormal CPU temperature
     temp_file="usr/lib/armbian/armbian-allwinner-battery"

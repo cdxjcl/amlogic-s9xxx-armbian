@@ -7,11 +7,11 @@ preset_log="/tmp/armbian-preset.log"
 # Add log
 tolog() {
     echo -e "${1}"
-    echo -e "[$(date +"%Y.%m.%d.%H:%M:%S")] ${1}" >>${fix_log}
+    echo -e "[$(date +"%Y.%m.%d.%H:%M:%S")] ${1}" >>${preset_log}
 }
 
 # Show start message
-echo "" >${fix_log} && tolog "Start presetting..."
+echo "" >${preset_log} && tolog "Start presetting..."
 
 [[ -f "${ophub_release_file}" ]] && {
     # Get welcome banner value

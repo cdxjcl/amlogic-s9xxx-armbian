@@ -240,16 +240,16 @@ sub board_special_config() {
     } elsif($board eq "Hlink H88K") {
         &optimize_eth_parameters("eth0","eth1");
     } elsif($board eq "Hlink H88K-V3") {
-        &optimize_eth_parameters("eth0","eth1");
+        &optimize_eth_parameters("eth0","eth1","eth2");
     }
 }
 
 sub optimize_eth_parameters {
     while (my $eth = shift) {
         print "optimizing $eth ... ";
-        system "ethtool -K $eth scatter-gather on >/dev/null 2>&1";
-        system "ethtool -K $eth tcp-segmentation-offload on >/dev/null 2>&1";
-        system "ethtool -K $eth rx-udp-gro-forwarding on >/dev/null 2>&1";
+        system "ethtool -K $eth scatter-gather on";
+        system "ethtool -K $eth tcp-segmentation-offload on";
+        system "ethtool -K $eth rx-udp-gro-forwarding on";
         print "done\n";
     }
 }

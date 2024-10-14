@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ophub_release_file="/etc/ophub-release"
+fp_config="/root/.not_logged_in_yet"
 
 preset_log="/tmp/armbian-preset.log"
 
@@ -21,4 +22,11 @@ echo "" >${preset_log} && tolog "Start presetting..."
     board_name="$(cat ${ophub_release_file} | grep -E "^BOARD=" | cut -d"'" -f2 | sed -e "s|\b[a-z]|\U&|g")"
 
     tolog "00. Welcome banner: ${family_name} ${platform_name} ${soc_name} ${board_name}"
+
+    [[ -f ${fp_config} ]] && {
+        random_passwd = $(openssl rand -base64 12)
+        sed -i "s|^PRESET_ROOT_PASSWORD=.*|PRESET_ROOT_PASSWORD='${random_passwd}'|g" ${fp_config}
+        sed -i "s|^PRESET_USER_PASSWORD=.*|PRESET_USER_PASSWORD='${random_passwd}'|g" ${fp_config}
+        tolog "01. Set random root password: ${random_passwd}"
+    }
 }

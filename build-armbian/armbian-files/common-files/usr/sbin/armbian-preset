@@ -24,9 +24,8 @@ echo "" >${preset_log} && tolog "Start presetting..."
     tolog "00. Welcome banner: ${family_name} ${platform_name} ${soc_name} ${board_name}"
 
     [[ -f ${fp_config} ]] && {
-        random_passwd = $(openssl rand -base64 12)
-        sed -i "s|^PRESET_ROOT_PASSWORD=.*|PRESET_ROOT_PASSWORD='${random_passwd}'|g" ${fp_config}
-        sed -i "s|^PRESET_USER_PASSWORD=.*|PRESET_USER_PASSWORD='${random_passwd}'|g" ${fp_config}
-        tolog "01. Set random root password: ${random_passwd}"
+        random_passwd=$(openssl rand -base64 12)
+        sed -i "s|^PRESET_USER_PASSWORD=.*|PRESET_USER_PASSWORD=${random_passwd}|g" ${fp_config}
+        tolog "01. Set random user password: ${random_passwd}"
     }
 }
